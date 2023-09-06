@@ -1,12 +1,8 @@
 # Stage de compilação
 FROM maven:3.8.3-openjdk-17 AS BUILD
 
-WORKDIR /app
-COPY pom.xml .
-RUN mvn dependency:go-offline
-
-COPY src/ ./src/
-RUN mvn package -DskipTests -X
+COPY . .
+RUN mvn clean package -DskipTests
 
 # Stage de pacote
 FROM openjdk:17-jdk-slim
